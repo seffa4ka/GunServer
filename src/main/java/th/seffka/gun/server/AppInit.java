@@ -23,4 +23,5 @@ public class AppInit implements WebApplicationInitializer {
         servlet.addMapping("/");
         servlet.setLoadOnStartup(1);
     }
+
 }

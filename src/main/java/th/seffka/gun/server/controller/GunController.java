@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/gun")
 public class GunController {
+
     @RequestMapping(value = "test", method = RequestMethod.GET)
+
     @ResponseBody
-    public String getTest(ModelMap mdel) {
+    public String getTest(ModelMap model) {
+
         return "ok";
     }
 }
