@@ -1,20 +1,40 @@
 package th.seffka.gun.server.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import th.seffka.gun.server.entity.Test;
+import th.seffka.gun.server.service.TestService;
 
-@Controller
-@RequestMapping("/gun")
+import java.util.List;
+
+@RestController
 public class GunController {
 
-    @RequestMapping(value = "test", method = RequestMethod.GET)
+    @Autowired
+    private TestService service;
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
-    public String getTest(ModelMap model) {
-
-        return "ok";
+    public List<Test> selectTableTest() {
+        return service.selectAll();
     }
+
+    @RequestMapping(value = "/test/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Test selectTest(@PathVariable("id") long testId) {
+        return service.selectOne(testId);
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ResponseBody
+    public Test insertAndUpdateTest(@RequestBody Test test) {
+        return service.insertAndUpdate(test);
+    }
+
+    @RequestMapping(value = "/test/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public void deleteTest(@PathVariable("id") long testId) {
+        service.delete(testId);
+    }
+
 }
